@@ -34,7 +34,8 @@ namespace IW4ServerInfo
 			{
 				//connect to the server
 				System.Net.Sockets.Socket client = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Dgram, System.Net.Sockets.ProtocolType.Udp);
-				client.ReceiveTimeout = 5;
+				client.ReceiveTimeout = 999;
+				client.SendTimeout = 999;
 				client.Connect(IPAddress.Parse(hostaddress), port);
 
 				//send the getstatus message to the server
@@ -56,22 +57,46 @@ namespace IW4ServerInfo
 		{
 			if (this.infoMsg.Length <= 50) throw new NoInfoException();
 
+			String searchStr = "\\mapname\\";
 			String mapName = "";
 
 			try
 			{
-				int startingPoint = this.infoMsg.IndexOf("\\mapname\\", 28) + 9;
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
 				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
 
 				mapName = this.infoMsg.Substring(startingPoint, endPoint - startingPoint);
 			}
 			catch
 			{
-				mapName = "#Error";
+				throw new NoInfoException ();
 			}
 
 			return mapName;
 		}
+
+		public int getMaxClients()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\sv_maxclients\\";
+			int max_player = 0;
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
+				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
+
+				int.TryParse(this.infoMsg.Substring(startingPoint, endPoint - startingPoint), out max_player);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			return max_player;
+		}
+
 	}
 }
 

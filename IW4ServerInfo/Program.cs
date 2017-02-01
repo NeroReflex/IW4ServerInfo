@@ -15,7 +15,7 @@ namespace IW4ServerInfo
 		{
 			IW4ServerInfo server = new IW4ServerInfo ("52.90.193.240:28960");
 
-			Console.WriteLine (server.getMapName());
+			Console.WriteLine (server.getMapName() + " MAX " + server.getMaxClients() + " Players");
 		}
 	}
 }
