@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IW4ServerInfo", "IW4ServerInfo\IW4ServerInfo.csproj", "{55B6535D-0498-41F3-A0C3-63513C576F02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55B6535D-0498-41F3-A0C3-63513C576F02}.Debug|x86.ActiveCfg = Debug|x86
+		{55B6535D-0498-41F3-A0C3-63513C576F02}.Debug|x86.Build.0 = Debug|x86
+		{55B6535D-0498-41F3-A0C3-63513C576F02}.Release|x86.ActiveCfg = Release|x86
+		{55B6535D-0498-41F3-A0C3-63513C576F02}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal
