@@ -53,6 +53,28 @@ namespace IW4ServerInfo
 			}
 		}
 
+		public String getHostName()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\sv_hostname\\";
+			String hostName = "";
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
+				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
+
+				hostName = this.infoMsg.Substring(startingPoint, endPoint - startingPoint);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			return hostName;
+		}
+
 		public String getMapName()
 		{
 			if (this.infoMsg.Length <= 50) throw new NoInfoException();
@@ -95,6 +117,50 @@ namespace IW4ServerInfo
 			}
 
 			return max_player;
+		}
+
+		public int getMaxPing()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\sv_maxPing\\";
+			int max_ping = 0;
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
+				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
+
+				int.TryParse(this.infoMsg.Substring(startingPoint, endPoint - startingPoint), out max_ping);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			return max_ping;
+		}
+
+		public int getMinPing()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\sv_minPing\\";
+			int min_ping = 0;
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
+				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
+
+				int.TryParse(this.infoMsg.Substring(startingPoint, endPoint - startingPoint), out min_ping);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			return min_ping;
 		}
 
 	}
