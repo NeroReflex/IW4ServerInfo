@@ -1,0 +1,3 @@
+[submodule "HttpWebServer"]
+	path = HttpWebServer
+	url = https://github.com/jeske/SimpleHttpServer.git
