@@ -53,6 +53,13 @@ namespace IW4ServerInfo
 			}
 		}
 
+		public string getAllData()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			return this.infoMsg;
+		}
+
 		public String getHostName()
 		{
 			if (this.infoMsg.Length <= 50) throw new NoInfoException();
@@ -163,6 +170,85 @@ namespace IW4ServerInfo
 			return min_ping;
 		}
 
+		public int getNumberPlayers()
+		{
+			string num_players = getAllPlayersListData ();
+
+			int count = 0, i = 0;
+
+			while ((i = num_players.IndexOf('"', i)) != -1)
+			{
+				count++;
+				// Increment the index.
+				i++;
+			}
+
+			return count / 2;
+		}
+
+		public string getCurrentPlayersList()
+		{
+			string list_players = getAllPlayersListData ();
+
+			string[] array_nomi = new string[18];
+			int count = 0, i = 0, z = 0;
+			string temp = "";
+			string lista = "a";
+			int a = 0;
+			int marker = 1;
+
+			while ((i = list_players.IndexOf('"', i)) != -1)
+			{
+				if (marker == 1)
+					marker = 0;
+				else
+					marker = 1;
+
+				if (marker != 0)
+				{	
+					temp = list_players.Substring(a + 1, i - a - 1);
+					array_nomi [z] = temp;
+					z = z + 1;
+				}
+				a = i;
+
+				count++;
+				// Increment the index.
+				i++;
+			}
+
+			for (int k = 0; k < (count / 2); k++)
+				if (k == 0)
+					lista = array_nomi[k];
+				else
+					lista = lista + "\n" + array_nomi[k];
+
+			return lista;
+		}
+
+		private string getAllPlayersListData()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\sv_tournament\\";
+			string allplayersdata = "";
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length + 1;
+				int endPoint = this.infoMsg.Length;
+
+				allplayersdata = this.infoMsg.Substring(startingPoint, endPoint - startingPoint);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			return allplayersdata;
+		}
+
+
+
 	}
 }
-
