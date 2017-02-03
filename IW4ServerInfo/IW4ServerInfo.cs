@@ -126,6 +126,7 @@ namespace IW4ServerInfo
 			return mapName;
 		}
 
+		//currently only for iw4
 		public String getCommonMapName()
 		{
 			if (this.infoMsg.Length <= 50) throw new NoInfoException();
@@ -179,6 +180,76 @@ namespace IW4ServerInfo
 			}
 			
 			return mapName;
+		}
+
+		public string getGameType()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\g_gametype\\";
+			String gameType = "";
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
+				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
+
+				gameType = this.infoMsg.Substring(startingPoint, endPoint - startingPoint);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			return gameType;
+		}
+
+		//currently only for iw4
+		public String getCommonGameTypeName()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String commonGameType = "";
+			commonGameType = checkRealGameTypeName(getGameType());
+
+			return commonGameType;
+		}
+
+		private string checkRealGameTypeName(string gameType)
+		{
+			if (getGameName().Equals("IW4"))
+			{
+				if (gameType.Equals ("war"))
+					gameType = "Team Deathmatch";
+				else if (gameType.Equals ("dm"))
+					gameType = "Free for All";
+				else if (gameType.Equals ("dom"))
+					gameType = "Skidrow";
+				else if (gameType.Equals ("koth"))
+					gameType = "Sub Base";
+				else if (gameType.Equals ("sab"))
+					gameType = "Wasteland";
+				else if (gameType.Equals ("sd"))
+					gameType = "Bailout";
+				else if (gameType.Equals ("arena"))
+					gameType = "Salvage";
+				else if (gameType.Equals ("dd"))
+					gameType = "Carnival";
+				else if (gameType.Equals ("ctf"))
+					gameType = "Fuel";
+				else if (gameType.Equals ("oneflag"))
+					gameType = "Trailer Park";
+				else if (gameType.Equals ("gtnw"))
+					gameType = "Nuketown";
+				else if (gameType.Equals ("oitc"))
+					gameType = "Oilrig";
+				else if (gameType.Equals ("gg"))
+					gameType = "BurgerTown";
+				else if (gameType.Equals ("ss"))
+					gameType = "It's basicly A Cube";
+			}
+
+			return gameType;
 		}
 
 		public int getMaxClients()
@@ -325,8 +396,5 @@ namespace IW4ServerInfo
 
 			return allplayersdata;
 		}
-
-
-
 	}
 }
