@@ -18,7 +18,6 @@ namespace IW4ServerInfo
 				IW4ServerInfo server = new IW4ServerInfo (args[0]);
 
 				Console.WriteLine ("This server is running: " + server.getGameName() + " -> " + server.getGameType() + " (" + server.getCommonGameTypeName() + ") HC MODE: " + server.getHardCoreStatus() + "\n" + server.getHostName () + " -> " + server.getMapName () + " ("+ server.getCommonMapName() + ") " + server.getNumberPlayers () + "/" + server.getMaxClients () + " PLAYERS\nCURRENT PLAYERS LIST:\n" + server.getCurrentPlayersList ());
-				//Console.WriteLine (server.getAllData());
 			} else {
 				Console.WriteLine ("usage: IW4ServerInfo [ip address]:[port]");
 			}

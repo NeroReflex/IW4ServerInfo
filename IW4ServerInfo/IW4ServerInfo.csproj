@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
     <PlatformTarget>x86</PlatformTarget>
-    <Commandlineparameters>66.150.121.184:28966</Commandlineparameters>
+    <Commandlineparameters>104.238.136.175:28970</Commandlineparameters>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

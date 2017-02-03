@@ -224,29 +224,29 @@ namespace IW4ServerInfo
 				else if (gameType.Equals ("dm"))
 					gameType = "Free for All";
 				else if (gameType.Equals ("dom"))
-					gameType = "Skidrow";
+					gameType = "Domination";
 				else if (gameType.Equals ("koth"))
-					gameType = "Sub Base";
+					gameType = "Headquarters";
 				else if (gameType.Equals ("sab"))
-					gameType = "Wasteland";
+					gameType = "Sabotage";
 				else if (gameType.Equals ("sd"))
-					gameType = "Bailout";
+					gameType = "Search and Destroy";
 				else if (gameType.Equals ("arena"))
-					gameType = "Salvage";
+					gameType = "Arena";
 				else if (gameType.Equals ("dd"))
-					gameType = "Carnival";
+					gameType = "Demolition";
 				else if (gameType.Equals ("ctf"))
-					gameType = "Fuel";
+					gameType = "Capture the Flag";
 				else if (gameType.Equals ("oneflag"))
-					gameType = "Trailer Park";
+					gameType = "One Flag CTF";
 				else if (gameType.Equals ("gtnw"))
-					gameType = "Nuketown";
+					gameType = "Global Thermo-Nuclear War";
 				else if (gameType.Equals ("oitc"))
-					gameType = "Oilrig";
+					gameType = "One in the chamer";
 				else if (gameType.Equals ("gg"))
-					gameType = "BurgerTown";
+					gameType = "Gun Game";
 				else if (gameType.Equals ("ss"))
-					gameType = "It's basicly A Cube";
+					gameType = "Sharp Shooter";
 			}
 
 			return gameType;
