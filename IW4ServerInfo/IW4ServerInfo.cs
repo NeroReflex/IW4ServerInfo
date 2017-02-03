@@ -104,6 +104,12 @@ namespace IW4ServerInfo
 			return hostName;
 		}
 
+		public String RemoveColourInformation()
+		{
+			string hostname = getHostName ();
+			return Regex.Replace(hostname, "\\^.", "", RegexOptions.IgnoreCase);
+		}
+
 		public String getMapName()
 		{
 			if (this.infoMsg.Length <= 50) throw new NoInfoException();
