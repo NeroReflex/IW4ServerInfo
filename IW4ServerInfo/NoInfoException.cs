@@ -6,6 +6,7 @@ namespace IW4ServerInfo
 	{
 		public NoInfoException ()
 		{
+			Console.WriteLine ("Error: Impossible to retrieve correct server informations!");
 		}
 	}
 }

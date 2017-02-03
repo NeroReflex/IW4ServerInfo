@@ -6,6 +6,7 @@ namespace IW4ServerInfo
 	{
 		public ServerConnectionException()
 		{
+			Console.WriteLine ("Error: Selected server appears to be offline!");
 		}
 	}
 }

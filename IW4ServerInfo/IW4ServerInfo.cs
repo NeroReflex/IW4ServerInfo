@@ -60,6 +60,28 @@ namespace IW4ServerInfo
 			return this.infoMsg;
 		}
 
+		public string getGameName()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\gamename\\";
+			String gameName = "";
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
+				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
+
+				gameName = this.infoMsg.Substring(startingPoint, endPoint - startingPoint);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			return gameName;
+		}
+
 		public String getHostName()
 		{
 			if (this.infoMsg.Length <= 50) throw new NoInfoException();
@@ -101,6 +123,61 @@ namespace IW4ServerInfo
 				throw new NoInfoException ();
 			}
 
+			return mapName;
+		}
+
+		public String getCommonMapName()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String commonMapName = "";
+			commonMapName = checkRealMapName(getMapName());
+
+			return commonMapName;
+		}
+
+		private string checkRealMapName(string mapName)
+		{
+			if (getGameName().Equals("IW4"))
+			{
+				if (mapName.Equals ("mp_checkpoint"))
+					mapName = "Karachi";
+				else if (mapName.Equals ("mp_boneyard"))
+					mapName = "Scrapyard";
+				else if (mapName.Equals ("mp_nightshift"))
+					mapName = "Skidrow";
+				else if (mapName.Equals ("mp_subbase"))
+					mapName = "Sub Base";
+				else if (mapName.Equals ("mp_brecourt"))
+					mapName = "Wasteland";
+				else if (mapName.Equals ("mp_complex"))
+					mapName = "Bailout";
+				else if (mapName.Equals ("mp_compact"))
+					mapName = "Salvage";
+				else if (mapName.Equals ("mp_abandon"))
+					mapName = "Carnival";
+				else if (mapName.Equals ("mp_fuel2"))
+					mapName = "Fuel";
+				else if (mapName.Equals ("mp_trailerpark"))
+					mapName = "Trailer Park";
+				else if (mapName.Equals ("mp_nuked"))
+					mapName = "Nuketown";
+				else if (mapName.Equals ("oilrig"))
+					mapName = "Oilrig";
+				else if (mapName.Equals ("invasion"))
+					mapName = "BurgerTown";
+				else if (mapName.Equals ("iw4_credits"))
+					mapName = "It's basicly A Cube";
+				else if (mapName.Equals ("gulag"))
+					mapName = "Gulag";
+				else if (mapName.Equals ("contingency"))
+					mapName = "Contingency";
+				else if (mapName.Equals ("so_ghillies"))
+					mapName = "Pripyat";
+				else
+					mapName = mapName.Substring (3, 1).ToUpper () + mapName.Substring (4, mapName.Length - 4);
+			}
+			
 			return mapName;
 		}
 
@@ -189,12 +266,15 @@ namespace IW4ServerInfo
 		public string getCurrentPlayersList()
 		{
 			string list_players = getAllPlayersListData ();
+			int num_players = getNumberPlayers ();
 
-			string[] array_nomi = new string[18];
-			int count = 0, i = 0, z = 0;
+			if (num_players == 0)
+				return "No active players";
+
+			string[] array_nomi = new string[num_players];
+			int a = 0, i = 0, z = 0;
 			string temp = "";
-			string lista = "a";
-			int a = 0;
+			string lista = "";
 			int marker = 1;
 
 			while ((i = list_players.IndexOf('"', i)) != -1)
@@ -207,17 +287,15 @@ namespace IW4ServerInfo
 				if (marker != 0)
 				{	
 					temp = list_players.Substring(a + 1, i - a - 1);
-					array_nomi [z] = temp;
-					z = z + 1;
+					array_nomi [z++] = temp;
 				}
 				a = i;
 
-				count++;
 				// Increment the index.
 				i++;
 			}
 
-			for (int k = 0; k < (count / 2); k++)
+			for (int k = 0; k < num_players; k++)
 				if (k == 0)
 					lista = array_nomi[k];
 				else
