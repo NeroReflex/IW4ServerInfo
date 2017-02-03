@@ -252,6 +252,34 @@ namespace IW4ServerInfo
 			return gameType;
 		}
 
+		public string getHardCoreStatus()
+		{
+			if (this.infoMsg.Length <= 50) throw new NoInfoException();
+
+			String searchStr = "\\g_hardcore\\";
+			int status = 0;
+			string hardcore = "";
+
+			try
+			{
+				int startingPoint = this.infoMsg.IndexOf(searchStr) + searchStr.Length;
+				int endPoint = this.infoMsg.IndexOf("\\", startingPoint);
+
+				int.TryParse(this.infoMsg.Substring(startingPoint, endPoint - startingPoint), out status);
+			}
+			catch
+			{
+				throw new NoInfoException ();
+			}
+
+			if (status == 0)
+				hardcore = "disable";
+			else
+				hardcore = "enable";
+
+			return hardcore;
+		}
+
 		public int getMaxClients()
 		{
 			if (this.infoMsg.Length <= 50) throw new NoInfoException();
