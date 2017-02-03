@@ -13,9 +13,14 @@ namespace IW4ServerInfo
 	{
 		public static void Main (string[] args)
 		{
-			IW4ServerInfo server = new IW4ServerInfo ("101.50.106.67:28961");
+			if (args.Length > 0) {
 
-			Console.WriteLine (server.getHostName() + " -> " + server.getMapName() + " " + server.getNumberPlayers() + "/" + server.getMaxClients() + " PLAYERS\nCURRENT PLAYERS LIST:\n" + server.getCurrentPlayersList());
+				IW4ServerInfo server = new IW4ServerInfo (args[1]);
+
+				Console.WriteLine (server.getHostName () + " -> " + server.getMapName () + " " + server.getNumberPlayers () + "/" + server.getMaxClients () + " PLAYERS\nCURRENT PLAYERS LIST:\n" + server.getCurrentPlayersList ());
+			} else {
+				Console.WriteLine ("usage: IW4ServerInfo [ip address]:[port]");
+			}
 		}
 	}
 }
